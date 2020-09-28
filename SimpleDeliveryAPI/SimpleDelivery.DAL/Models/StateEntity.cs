@@ -4,10 +4,9 @@ using System.Text;
 
 namespace SimpleDelivery.DAL.Models
 {
-    public class VehicleTypeEntity : BaseEntity
+    public class StateEntity : BaseEntity
     {
-        public virtual decimal MaxCarrying { get; set; }
         public virtual string Name { get; set; }
-        public virtual IList<VehicleEntity> Vehicles { get; set; }
+        public virtual IList<OrderEntity> Orders { get; set; }
     }
 }
