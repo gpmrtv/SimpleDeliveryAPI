@@ -7,6 +7,6 @@ namespace SimpleDelivery.DAL.Models
     public class BaseEntity
     {
         public Guid Id { get; set; }
-        public DateTime CreatedDateTime { get; set; }
+        public DateTime Created { get; set; }
     }
 }
