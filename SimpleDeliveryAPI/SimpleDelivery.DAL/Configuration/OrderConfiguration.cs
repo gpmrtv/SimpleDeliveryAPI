@@ -13,12 +13,12 @@ namespace SimpleDelivery.DAL.Configuration
         {
             base.Configure(builder);
             builder.ToTable("Orders");
-            builder.Property(p => p.Cost).HasColumnName("Cost");
+            builder.Property(p => p.Cost).HasColumnName("Cost").HasColumnType("Decimal");
             builder.Property(p => p.Description).HasColumnName("Description").HasMaxLength(1000);
             builder.Property(p => p.ExecutionDate).HasColumnName("ExecutionDate").IsRequired(false);
             //builder.HasOne(o => o.Customer).WithMany(m => m.Orders).IsRequired();
             //builder.HasOne(o => o.Performer).WithMany(m => m.Orders).IsRequired(false);
-            //builder.HasOne(o => o.Route).WithOne(o => o.Order).IsRequired();
+            builder.HasOne(o => o.Route).WithOne(o => o.Order).IsRequired().HasForeignKey(typeof(OrderEntity));
             //builder.HasOne(o => o.State).WithMany(m => m.Orders).IsRequired();
         }
     }

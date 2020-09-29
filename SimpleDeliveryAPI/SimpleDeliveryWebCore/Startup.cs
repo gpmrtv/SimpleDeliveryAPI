@@ -6,10 +6,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SimpleDelivery.DAL;
+using SimpleDelivery.DAL.EF;
+using SimpleDelivery.DAL.Interfaces;
 
 namespace SimpleDeliveryWebCore
 {
@@ -26,6 +30,10 @@ namespace SimpleDeliveryWebCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddDbContext<DeliveryContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DeliveryConnectionString"), m => m.MigrationsAssembly("SimpleDelivery.DAL")));
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

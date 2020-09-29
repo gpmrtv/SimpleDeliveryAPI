@@ -13,7 +13,7 @@ namespace SimpleDelivery.DAL.Configuration
         {
             base.Configure(builder);
             builder.ToTable("VehicleTypes");
-            builder.Property(p => p.MaxCarrying).HasColumnName("MaxCarrying");
+            builder.Property(p => p.MaxCarrying).HasColumnName("MaxCarrying").HasColumnType("Decimal");
             builder.Property(p => p.Name).HasColumnName("TypeName").HasMaxLength(30);
             builder.HasMany(m => m.Vehicles).WithOne(o => o.VehicleType).OnDelete(DeleteBehavior.Cascade).IsRequired(true);
         }

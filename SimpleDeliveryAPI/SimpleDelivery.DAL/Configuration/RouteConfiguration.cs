@@ -16,7 +16,7 @@ namespace SimpleDelivery.DAL.Configuration
             builder.Property(p => p.StartPoint).HasColumnName("StartPoint").HasMaxLength(30);
             builder.Property(p => p.FinishPoint).HasColumnName("FinishPoint").HasMaxLength(20);
             builder.HasOne(m => m.Order).WithOne(o => o.Route).IsRequired();
-            builder.HasOne(m => m.ParentRoute).WithOne(o => o.ParentRoute).IsRequired(false);
+            //builder.HasOne(m => m.ParentRoute).WithOne(o => o.ParentRoute).IsRequired(false);
         }
     }
 }
