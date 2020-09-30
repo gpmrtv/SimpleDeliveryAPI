@@ -19,7 +19,7 @@ namespace SimpleDelivery.DAL.Interfaces
         Task AddRangeAsync(IEnumerable<TEntity> entities);
         ValueTask<TEntity> UpdateAsync(TEntity entity);
         Task UpdateRangeAsync(IEnumerable<TEntity> entities);
-        Task RemoveAsync(TEntity entity);
-        Task RemoveRangeAsync(IEnumerable<TEntity> entities);
+        Task RemoveAsync(Guid id);
+        Task RemoveRangeAsync(IEnumerable<Guid> ids);
     }
 }

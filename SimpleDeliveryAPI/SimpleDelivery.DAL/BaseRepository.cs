@@ -63,9 +63,9 @@ namespace SimpleDelivery.DAL
             return await _entities.Include(expression).FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public virtual async Task RemoveAsync(TEntity entity)
+        public virtual async Task RemoveAsync(Guid id)
         {
-            var dbEntity = await _entities.FindAsync(entity.Id);
+            var dbEntity = await _entities.FindAsync(id);
 
             if (dbEntity is null)
             {
@@ -77,9 +77,22 @@ namespace SimpleDelivery.DAL
             await _context.SaveChangesAsync();
         }
 
-        public virtual async Task RemoveRangeAsync(IEnumerable<TEntity> entities)
+        public virtual async Task RemoveRangeAsync(IEnumerable<Guid> ids)
         {
+            List<TEntity> entities = new List<TEntity>();
+            foreach(var id in ids)
+            {
+                var dbEntity = await _entities.FindAsync(id);
+
+                if (dbEntity is null)
+                {
+                    throw new ArgumentNullException("Entry not found");
+                }
+
+                entities.Add(dbEntity);
+            }
             _entities.RemoveRange(entities);
+
             await _context.SaveChangesAsync();
         }
 

@@ -13,7 +13,7 @@ namespace SimpleDelivery.DAL
     {
         private readonly DbContext _context;
         
-        public UnitOfWork(DeliveryContext context)
+        public UnitOfWork(DbContext context)
         {
             _context = context;
         }

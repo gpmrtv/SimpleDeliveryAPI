@@ -24,7 +24,6 @@ namespace SimpleDeliveryWebCore.Controllers
         public async ValueTask<CustomerEntity> Get()
         {
             var repo = await _uow.GetRepository<CustomerEntity>();
-            //var result = await repo.AddAsync(new CustomerEntity() { Id = Guid.NewGuid(), Created = DateTime.Now, Email = "test@gmail.com", LastName = "Testov", Login = "testLogin", Name = "Test", Password = "testPass", Phone = "testPhone"});
             var findestEntities = await repo.GetAllAsync(x => x.Orders);
             var entityForUpdate = findestEntities.FirstOrDefault();
             entityForUpdate.Email = "change@gmail.com";
