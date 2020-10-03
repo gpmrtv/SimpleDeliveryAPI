@@ -22,6 +22,9 @@ namespace SimpleDelivery.DAL
         }
         public virtual async ValueTask<TEntity> AddAsync(TEntity entity)
         {
+            entity.Id = Guid.NewGuid();
+            entity.Created = DateTime.Now;
+
             var addedEntity = await _entities.AddAsync(entity);
             await _context.SaveChangesAsync();
             return addedEntity.Entity;
@@ -35,32 +38,32 @@ namespace SimpleDelivery.DAL
 
         public virtual async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return await _entities.Where(predicate).ToListAsync();
+            return await _entities.AsNoTracking().Where(predicate).ToListAsync();
         }
 
         public virtual async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, object>> expression)
         {
-            return await _entities.Include(expression).Where(predicate).ToListAsync();
+            return await _entities.AsNoTracking().Include(expression).Where(predicate).ToListAsync();
         }
 
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return await _entities.ToListAsync();
+            return await _entities.AsNoTracking().ToListAsync();
         }
 
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, object>> expression)
         {
-            return await _entities.Include(expression).ToListAsync();
+            return await _entities.Include(expression).AsNoTracking().ToListAsync();
         }
 
         public virtual async ValueTask<TEntity> GetAsync(Guid id)
         {
-            return await _entities.FindAsync(id);
+            return await _entities.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public virtual async ValueTask<TEntity> GetAsync(Guid id, Expression<Func<TEntity, object>> expression)
         {
-            return await _entities.Include(expression).FirstOrDefaultAsync(x => x.Id == id);
+            return await _entities.Include(expression).AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public virtual async Task RemoveAsync(Guid id)
@@ -98,7 +101,7 @@ namespace SimpleDelivery.DAL
 
         public virtual async ValueTask<TEntity> UpdateAsync(TEntity entity)
         {
-            var dbEntity = await _entities.FindAsync(entity.Id);
+            var dbEntity = await _entities.AsNoTracking().FirstOrDefaultAsync(x => x.Id == entity.Id);
 
             if (dbEntity is null)
             {

@@ -13,13 +13,12 @@ namespace SimpleDelivery.DAL
     {
         private readonly DbContext _context;
         
-        public UnitOfWork(DbContext context)
+        public UnitOfWork(DeliveryContext context)
         {
             _context = context;
         }
-        public async Task<IRepository<TEntity>> GetRepository<TEntity>() where TEntity : BaseEntity
+        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : BaseEntity
         {
-            await Task.Yield();
             return new BaseRepository<TEntity>(_context);
         }
     }

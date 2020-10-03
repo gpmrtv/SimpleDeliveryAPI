@@ -11,6 +11,7 @@ namespace SimpleDelivery.BLL.Interfaces
     {
         ValueTask<CustomerDTO> GetAsync(Guid id);
         Task<IEnumerable<CustomerDTO>> GetAllAsync();
+        Task<IEnumerable<CustomerDTO>> GetAllAsync(Expression<Func<CustomerDTO, object>> expression);
         Task<IEnumerable<CustomerDTO>> FindAllAsync(Expression<Func<CustomerDTO, bool>> predicate);
         ValueTask<CustomerDTO> AddAsync(CustomerDTO customer);
         ValueTask<CustomerDTO> UpdateAsync(CustomerDTO customer);

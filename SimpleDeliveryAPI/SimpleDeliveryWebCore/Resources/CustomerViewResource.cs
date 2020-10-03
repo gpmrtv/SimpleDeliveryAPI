@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace SimpleDelivery.BLL.Dtos
+namespace SimpleDeliveryWebCore.Resources
 {
-    public class CustomerDTO
+    public class CustomerViewResource
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

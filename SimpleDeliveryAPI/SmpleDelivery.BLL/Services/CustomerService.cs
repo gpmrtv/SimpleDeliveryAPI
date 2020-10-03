@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SimpleDelivery.BLL.Dtos;
+using SimpleDelivery.BLL.Infrastructure.Exceptions;
 using SimpleDelivery.BLL.Interfaces;
 using SimpleDelivery.DAL.Interfaces;
+using SimpleDelivery.DAL.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,39 +24,51 @@ namespace SimpleDelivery.BLL.Services
             _uow = uow;
             _mapper = mapper;
         }
-        public ValueTask<CustomerDTO> AddAsync(CustomerDTO customer)
+        public async ValueTask<CustomerDTO> AddAsync(CustomerDTO customer)
         {
-            throw new NotImplementedException();
+            var customers = (await _uow.GetRepository<CustomerEntity>().FindAsync(x => x.Email == customer.Email || x.Login == customer.Login)).ToList();
+            if (customers.Count != 0)
+                throw new ValidationException("Email/login exist");
+            var addedCust = await _uow.GetRepository<CustomerEntity>().AddAsync(_mapper.Map<CustomerEntity>(customer));
+            return _mapper.Map<CustomerDTO>(addedCust);
         }
 
-        public Task<IEnumerable<CustomerDTO>> FindAllAsync(Expression<Func<CustomerDTO, bool>> predicate)
+        public async Task<IEnumerable<CustomerDTO>> FindAllAsync(Expression<Func<CustomerDTO, bool>> predicate)
         {
-            throw new NotImplementedException();
+            var dalPredicate = _mapper.Map<Expression<Func<CustomerEntity, bool>>>(predicate);
+            return _mapper.Map<IEnumerable<CustomerDTO>>(await _uow.GetRepository<CustomerEntity>().FindAsync(dalPredicate));
         }
 
-        public Task<IEnumerable<CustomerDTO>> GetAllAsync()
+        public async Task<IEnumerable<CustomerDTO>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return _mapper.Map<IEnumerable<CustomerDTO>>(await _uow.GetRepository<CustomerEntity>().GetAllAsync());
         }
 
-        public ValueTask<CustomerDTO> GetAsync(Guid id)
+        public async Task<IEnumerable<CustomerDTO>> GetAllAsync(Expression<Func<CustomerDTO, object>> expression)
         {
-            throw new NotImplementedException();
+            var dalExpression = _mapper.Map<Expression<Func<CustomerEntity, object>>>(expression);
+            return _mapper.Map<IEnumerable<CustomerDTO>>(await _uow.GetRepository<CustomerEntity>().GetAllAsync(dalExpression));
         }
 
-        public Task RemoveAsync(Guid id)
+        public async ValueTask<CustomerDTO> GetAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<CustomerDTO>(await _uow.GetRepository<CustomerEntity>().GetAsync(id));
         }
 
-        public Task RemoveRangeAsync(IEnumerable<Guid> ids)
+        public async Task RemoveAsync(Guid id)
         {
-            throw new NotImplementedException();
+            await _uow.GetRepository<CustomerEntity>().RemoveAsync(id);
         }
 
-        public ValueTask<CustomerDTO> UpdateAsync(CustomerDTO customer)
+        public async Task RemoveRangeAsync(IEnumerable<Guid> ids)
         {
-            throw new NotImplementedException();
+            await _uow.GetRepository<CustomerEntity>().RemoveRangeAsync(ids);
+        }
+
+        public async ValueTask<CustomerDTO> UpdateAsync(CustomerDTO customer)
+        {
+            var updatedCust = await _uow.GetRepository<CustomerEntity>().UpdateAsync(_mapper.Map<CustomerEntity>(customer));
+            return _mapper.Map<CustomerDTO>(updatedCust);
         }
     }
 }

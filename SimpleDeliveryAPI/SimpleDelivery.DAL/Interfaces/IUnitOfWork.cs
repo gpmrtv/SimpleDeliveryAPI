@@ -5,6 +5,6 @@ namespace SimpleDelivery.DAL.Interfaces
 {
     public interface IUnitOfWork
     {
-        Task<IRepository<TEntity>> GetRepository<TEntity>() where TEntity : BaseEntity;
+        IRepository<TEntity> GetRepository<TEntity>() where TEntity : BaseEntity;
     }
 }
