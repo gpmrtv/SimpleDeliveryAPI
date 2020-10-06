@@ -18,15 +18,11 @@ namespace SimpleDelivery.BLL.DI
     {
         public static IServiceCollection AddBllServices(this IServiceCollection services)
         {
-            services.AddScoped<ICustomerService, CustomerService>();
-
-/*            services.AddAutoMapper(
-                cfg => 
-                {
-                    cfg.AddExpressionMapping();
-                    cfg.AddCollectionMappers();
-                    
-                });*/
+            services.AddScoped<ICustomersService, CustomersService>();
+            services.AddScoped<IVehicleTypesService, VehicleTypesService>();
+            services.AddScoped<IStatesService, StatesService>();
+            services.AddScoped<IVehiclesService, VehiclesService>();
+            services.AddScoped<IPerformersService, PerformersService>();
 
             return services;
         }

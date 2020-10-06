@@ -19,14 +19,15 @@ namespace SimpleDeliveryWebCore.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private readonly ICustomerService _service;
+        private readonly ICustomersService _service;
         private readonly IMapper _mapper;
 
-        public CustomersController(ICustomerService service, IMapper mapper)
+        public CustomersController(ICustomersService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;
         }
+
         // GET: api/Customers
         [HttpGet]
         public async Task<ActionResult<List<CustomerViewResource>>> Get()
@@ -49,8 +50,8 @@ namespace SimpleDeliveryWebCore.Controllers
         }
 
         // GET: api/Customers/5
-        [HttpGet("{id}", Name = "Get")]
-        public async Task<ActionResult<CustomerViewResource>> Get(Guid id)
+        [HttpGet("{id}")]
+        public async ValueTask<ActionResult<CustomerViewResource>> Get(Guid id)
         {
             CustomerViewResource customer = null;
             try
@@ -97,7 +98,7 @@ namespace SimpleDeliveryWebCore.Controllers
 
         // PUT: api/Customers
         [HttpPut]
-        public async Task<ActionResult<CustomerViewResource>> Put([FromBody] CustomerViewResource customer)
+        public async ValueTask<ActionResult<CustomerViewResource>> Put([FromBody] UpdateCustomerResource customer)
         {
             CustomerViewResource updatedCustomer = null;
             try

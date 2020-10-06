@@ -14,7 +14,7 @@ namespace SimpleDelivery.DAL.Configuration
             builder.Property(p => p.Model).HasColumnName("Model").HasMaxLength(15);
             builder.Property(p => p.Color).HasColumnName("Color").HasMaxLength(20);
             builder.Property(p => p.Number).HasColumnName("Number").HasMaxLength(10);
-            builder.HasOne(o => o.Driver).WithMany(m => m.Vehicle).IsRequired(false);
+            builder.HasOne(o => o.Driver).WithMany(m => m.Vehicles).IsRequired(false);
             builder.HasOne(o => o.VehicleType).WithMany(m => m.Vehicles).OnDelete(DeleteBehavior.Cascade).IsRequired(true);
         }
     }

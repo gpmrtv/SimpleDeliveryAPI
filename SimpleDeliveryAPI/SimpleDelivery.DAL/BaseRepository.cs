@@ -119,5 +119,13 @@ namespace SimpleDelivery.DAL
             _entities.UpdateRange(entities);
             await _context.SaveChangesAsync();
         }
+
+/*        private void SetValuesOnFields(TEntity dbEntity, TEntity newEntity)
+        {
+            foreach(var prop in newEntity.GetType().GetProperties())
+            {
+                dbEntity.GetType().GetProperty(prop.Name, )
+            }
+        }*/
     }
 }

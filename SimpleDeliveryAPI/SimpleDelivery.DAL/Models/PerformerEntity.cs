@@ -13,7 +13,7 @@ namespace SimpleDelivery.DAL.Models
         public virtual string Login { get; set; }
         public virtual string Password { get; set; }
         public virtual bool IsVerified { get; set; }
-        public virtual IList<VehicleEntity> Vehicle { get; set; }
+        public virtual IList<VehicleEntity> Vehicles { get; set; }
         public virtual IList<OrderEntity> Orders { get; set; }
     }
 }

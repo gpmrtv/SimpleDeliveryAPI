@@ -21,7 +21,7 @@ namespace SimpleDelivery.DAL.Configuration
             builder.Property(p => p.Email).HasColumnName("Email").HasMaxLength(20);
             builder.Property(p => p.IsVerified).HasColumnName("IsVerified");
             builder.HasMany(m => m.Orders).WithOne(o => o.Performer).OnDelete(DeleteBehavior.SetNull).IsRequired(false);
-            builder.HasMany(m => m.Vehicle).WithOne(o => o.Driver).OnDelete(DeleteBehavior.Cascade).IsRequired(false);
+            builder.HasMany(m => m.Vehicles).WithOne(o => o.Driver).OnDelete(DeleteBehavior.Cascade).IsRequired(false);
 
         }
     }

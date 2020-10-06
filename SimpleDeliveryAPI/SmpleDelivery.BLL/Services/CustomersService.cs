@@ -14,12 +14,12 @@ using System.Threading.Tasks;
 
 namespace SimpleDelivery.BLL.Services
 {
-    public class CustomerService : ICustomerService
+    public class CustomersService : ICustomersService
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _uow;
         
-        public CustomerService(IUnitOfWork uow, IMapper mapper)
+        public CustomersService(IUnitOfWork uow, IMapper mapper)
         {
             _uow = uow;
             _mapper = mapper;

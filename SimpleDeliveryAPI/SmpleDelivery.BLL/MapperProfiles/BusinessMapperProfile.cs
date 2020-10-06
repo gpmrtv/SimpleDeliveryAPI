@@ -14,12 +14,20 @@ namespace SimpleDelivery.BLL.MapperProfiles
             #region domain to business
 
             CreateMap<CustomerEntity, CustomerDTO>();
+            CreateMap<VehicleTypeEntity, VehicleTypeDTO>();
+            CreateMap<StateEntity, StateDTO>();
+            CreateMap<PerformerEntity, PerformerDTO>();
+            CreateMap<VehicleEntity, VehicleDTO>();
 
             #endregion
 
             #region business to domain
 
             CreateMap<CustomerDTO, CustomerEntity>();
+            CreateMap<VehicleTypeDTO, VehicleTypeEntity>();
+            CreateMap<StateDTO, StateEntity>();
+            CreateMap<PerformerDTO, PerformerEntity>();
+            CreateMap<VehicleDTO, VehicleEntity>();
 
             #endregion
         }
