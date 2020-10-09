@@ -16,7 +16,7 @@ namespace SimpleDelivery.DAL.Configuration
             builder.Property(p => p.Name).HasColumnName("FirstName").HasMaxLength(20);
             builder.Property(p => p.LastName).HasColumnName("LastName").HasMaxLength(50);
             builder.Property(p => p.Email).HasColumnName("Email").HasMaxLength(20);
-            builder.HasMany(m => m.Orders).WithOne(o => o.Customer).OnDelete(DeleteBehavior.Cascade).IsRequired(false);
+            builder.HasMany(m => m.Orders).WithOne(o => o.Customer).OnDelete(DeleteBehavior.Cascade).IsRequired();
         }
     }
 }

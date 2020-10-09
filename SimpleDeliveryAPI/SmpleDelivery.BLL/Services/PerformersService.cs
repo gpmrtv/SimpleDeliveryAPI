@@ -70,5 +70,28 @@ namespace SimpleDelivery.BLL.Services
             var updatedPerformer = await _uow.GetRepository<PerformerEntity>().UpdateAsync(_mapper.Map<PerformerEntity>(performer));
             return _mapper.Map<PerformerDTO>(updatedPerformer);
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _uow.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }

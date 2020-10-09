@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SimpleDelivery.BLL.Interfaces
 {
-    public interface IStatesService
+    public interface IStatesService : IDisposable
     {
         ValueTask<StateDTO> GetAsync(Guid id);
         Task<IEnumerable<StateDTO>> GetAllAsync();

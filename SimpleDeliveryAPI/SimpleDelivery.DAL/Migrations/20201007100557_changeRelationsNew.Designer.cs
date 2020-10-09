@@ -10,8 +10,8 @@ using SimpleDelivery.DAL.EF;
 namespace SimpleDelivery.DAL.Migrations
 {
     [DbContext(typeof(DeliveryContext))]
-    [Migration("20200929203039_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20201007100557_changeRelationsNew")]
+    partial class changeRelationsNew
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,6 +70,7 @@ namespace SimpleDelivery.DAL.Migrations
             modelBuilder.Entity("SimpleDelivery.DAL.Models.OrderEntity", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("Id")
                         .HasColumnType("uniqueidentifier");
 
@@ -81,7 +82,7 @@ namespace SimpleDelivery.DAL.Migrations
                         .HasColumnName("CreatedDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("CustomerId")
+                    b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
@@ -176,6 +177,9 @@ namespace SimpleDelivery.DAL.Migrations
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("ParentRouteId")
                         .HasColumnType("uniqueidentifier");
 
@@ -185,6 +189,9 @@ namespace SimpleDelivery.DAL.Migrations
                         .HasMaxLength(30);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OrderId")
+                        .IsUnique();
 
                     b.HasIndex("ParentRouteId");
 
@@ -288,11 +295,6 @@ namespace SimpleDelivery.DAL.Migrations
                     b.HasOne("SimpleDelivery.DAL.Models.CustomerEntity", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SimpleDelivery.DAL.Models.RouteEntity", "Route")
-                        .WithOne("Order")
-                        .HasForeignKey("SimpleDelivery.DAL.Models.OrderEntity", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -310,6 +312,12 @@ namespace SimpleDelivery.DAL.Migrations
 
             modelBuilder.Entity("SimpleDelivery.DAL.Models.RouteEntity", b =>
                 {
+                    b.HasOne("SimpleDelivery.DAL.Models.OrderEntity", "Order")
+                        .WithOne("Route")
+                        .HasForeignKey("SimpleDelivery.DAL.Models.RouteEntity", "OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SimpleDelivery.DAL.Models.RouteEntity", "ParentRoute")
                         .WithMany()
                         .HasForeignKey("ParentRouteId");
@@ -318,7 +326,7 @@ namespace SimpleDelivery.DAL.Migrations
             modelBuilder.Entity("SimpleDelivery.DAL.Models.VehicleEntity", b =>
                 {
                     b.HasOne("SimpleDelivery.DAL.Models.PerformerEntity", "Driver")
-                        .WithMany("Vehicle")
+                        .WithMany("Vehicles")
                         .HasForeignKey("DriverId")
                         .OnDelete(DeleteBehavior.Cascade);
 

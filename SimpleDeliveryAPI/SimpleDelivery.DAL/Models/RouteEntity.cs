@@ -8,6 +8,7 @@ namespace SimpleDelivery.DAL.Models
     {
         public virtual string StartPoint { get; set; }
         public virtual string FinishPoint { get; set; }
+        public virtual Guid? ParentRouteId { get; set; }
         public virtual RouteEntity ParentRoute { get; set; }
         public virtual OrderEntity Order { get; set; }
     }

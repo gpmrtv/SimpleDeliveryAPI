@@ -11,6 +11,8 @@ namespace SimpleDelivery.BLL.Dtos
         public string Brand { get; set; }
         public string Model { get; set; }
         public string Color { get; set; }
+        public Guid? DriverId { get; set; }
+        public Guid VehicleTypeId { get; set; }
         public PerformerDTO Driver { get; set; }
         public VehicleTypeDTO VehicleType { get; set; }
     }

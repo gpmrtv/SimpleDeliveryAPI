@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SimpleDelivery.BLL.Interfaces
 {
-    public interface IVehiclesService
+    public interface IVehiclesService : IDisposable
     {
         ValueTask<VehicleDTO> GetAsync(Guid id);
         Task<IEnumerable<VehicleDTO>> GetAllAsync();

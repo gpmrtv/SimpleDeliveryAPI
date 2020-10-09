@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SimpleDelivery.BLL.Interfaces
 {
-    public interface ICustomersService
+    public interface ICustomersService : IDisposable
     {
         ValueTask<CustomerDTO> GetAsync(Guid id);
         Task<IEnumerable<CustomerDTO>> GetAllAsync();

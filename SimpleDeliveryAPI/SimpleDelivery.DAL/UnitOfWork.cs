@@ -21,5 +21,28 @@ namespace SimpleDelivery.DAL
         {
             return new BaseRepository<TEntity>(_context);
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // Для определения избыточных вызовов
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }

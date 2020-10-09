@@ -14,6 +14,5 @@ namespace SimpleDeliveryWebCore.Resources
         public string Email { get; set; }
         public string Password { get; set; }
         public bool IsVerified { get; set; }
-        public List<VehicleViewResource> Vehicles { get; set; }
     }
 }

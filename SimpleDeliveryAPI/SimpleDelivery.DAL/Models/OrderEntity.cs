@@ -9,6 +9,10 @@ namespace SimpleDelivery.DAL.Models
         public virtual string Description { get; set; }
         public virtual decimal Cost { get; set; }
         public virtual DateTime? ExecutionDate { get; set; }
+        public virtual Guid StateId { get; set; }
+        public virtual Guid RouteId { get; set; }
+        public virtual Guid CustomerId { get; set; }
+        public virtual Guid? PerformerId { get; set; }
         public virtual StateEntity State { get; set; }
         public virtual RouteEntity Route { get; set; }
         public virtual CustomerEntity Customer { get; set; }    

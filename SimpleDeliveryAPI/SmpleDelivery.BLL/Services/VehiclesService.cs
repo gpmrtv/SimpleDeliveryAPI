@@ -69,5 +69,28 @@ namespace SimpleDelivery.BLL.Services
             var updatedVehicle = await _uow.GetRepository<VehicleEntity>().UpdateAsync(_mapper.Map<VehicleEntity>(vehicle));
             return _mapper.Map<VehicleDTO>(updatedVehicle);
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _uow.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }

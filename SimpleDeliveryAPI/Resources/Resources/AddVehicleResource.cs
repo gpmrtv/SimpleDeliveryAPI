@@ -11,7 +11,7 @@ namespace SimpleDeliveryWebCore.Resources
         public string Brand { get; set; }
         public string Model { get; set; }
         public string Color { get; set; }
-        public PerformerViewResource Driver { get; set; }
-        public VehicleTypeViewResource VehicleType { get; set; }
+        public Guid? DriverId { get; set; }
+        public Guid VehicleTypeId { get; set; }
     }
 }

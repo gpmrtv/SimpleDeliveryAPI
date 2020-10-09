@@ -70,5 +70,28 @@ namespace SimpleDelivery.BLL.Services
             var updatedCust = await _uow.GetRepository<CustomerEntity>().UpdateAsync(_mapper.Map<CustomerEntity>(customer));
             return _mapper.Map<CustomerDTO>(updatedCust);
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _uow.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }
